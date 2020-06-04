@@ -1,0 +1,2 @@
+# sample-exrates
+Beispiel: Wechselkurse
