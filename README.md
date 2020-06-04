@@ -1,2 +1,2 @@
-# Sample: ExRates
-Beispiel: Wechselkurse
+# Sample App: ExRates
+Beispielanwendung: Wechselkurse
