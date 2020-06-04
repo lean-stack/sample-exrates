@@ -1,6 +1,11 @@
 // Taskrunner Gulp
 const gulp = require('gulp');
 
+const indexPage = 'src/index.html';
+
+//
+// Build Workflow
+//
 function buildStyles() {
   const postcss = require('gulp-postcss');
 
@@ -16,9 +21,36 @@ function buildIndexPage() {
 
   const styleSheet = gulp.src('dist/css/styles.css', {read: false});
 
-  return gulp.src('src/index.html')
+  return gulp.src(indexPage)
     .pipe(inject(styleSheet, {ignorePath: 'dist/', removeTags: true, addRootSlash: false}))
     .pipe(gulp.dest('dist'));
 }
 
-exports.default = gulp.series(buildStyles, buildIndexPage);
+const buildSampleApp = gulp.series(buildStyles, buildIndexPage);
+
+//
+// Development Workflow
+//
+
+function watchIndexPage() {
+  return gulp.watch(indexPage, buildSampleApp);
+}
+
+function serveDistFolder(done) {
+  const browserSync = require('browser-sync');
+
+  browserSync.init({
+    server: {
+      baseDir: 'dist'
+    },
+    watch: true
+  });
+  done();
+
+}
+
+const devWorkflow = gulp.series(buildSampleApp, serveDistFolder, watchIndexPage);
+
+// Tasks export
+exports.default = buildSampleApp;
+exports.dev = devWorkflow;
