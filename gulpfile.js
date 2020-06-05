@@ -2,6 +2,7 @@
 const gulp = require('gulp');
 
 const indexPage = 'src/index.html';
+const styles = 'src/styles/styles.css';
 
 //
 // Build Workflow
@@ -9,7 +10,7 @@ const indexPage = 'src/index.html';
 function buildStyles() {
   const postcss = require('gulp-postcss');
 
-  return gulp.src('src/styles/styles.css')
+  return gulp.src(styles)
     .pipe(postcss([
       require('tailwindcss')
     ]))
@@ -33,7 +34,7 @@ const buildSampleApp = gulp.series(buildStyles, buildIndexPage);
 //
 
 function watchIndexPage() {
-  return gulp.watch(indexPage, buildSampleApp);
+  return gulp.watch([indexPage, styles], buildSampleApp);
 }
 
 function serveDistFolder(done) {
