@@ -2,4 +2,37 @@
 
 @tailwind components;
 
+.list-group {
+  @apply flex;
+  @apply flex-col;
+  @apply rounded;
+}
+
+.list-group-item {
+  @apply block;
+  @apply border;
+  @apply border-teal-500;
+  @apply py-3;
+  @apply px-5;
+}
+
+.list-group-item.active {
+  @apply text-white;
+  @apply bg-teal-500;
+}
+
+.list-group-item + .list-group-item {
+  @apply border-t-0;
+}
+  
+.list-group-item:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.list-group-item:last-child {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+
 @tailwind utilities;
